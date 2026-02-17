@@ -1,0 +1,61 @@
+---
+services:
+  # Контейнер с Python_server
+  python_server:
+    build: ./backend
+    container_name: python_http_server
+    restart: on-failure
+    networks: 
+      - doockerweb_network
+    # Проверка открыт ли порт 8080
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import socket; s = socket.socket(); s.connect(('localhost', 8080))"]
+      interval: 10s      
+      timeout: 5s       
+      retries: 3        
+      start_period: 5s 
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+  # Контейнер с Nginx_web
+  nginx_proxy:
+    image: nginx:latest
+    container_name: nginx_proxy
+    restart: on-failure
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/404.html:/usr/share/nginx/html/404.html:ro
+    networks: 
+      - doockerweb_network
+    # Проверка Nginx_web
+    healthcheck:
+      test: ["CMD-SHELL", "service nginx status || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      python_server:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+networks:
+  doockerweb_network:
+    driver: bridge
+    internal: false
+...
