@@ -24,17 +24,17 @@
 
 ### Развертывание
 * **Клонируйте репозиторий:**
-`
-    $ git clone https://github.com/ne6esisbka/Doocker_Web.git
-    $ cd Doocker_Web
-`
+
+  >  $ git clone https://github.com/ne6esisbka/Doocker_Web.git
+  >  $ cd Doocker_Web
+
 * **Запустите проект в фоновом режиме:**
 
->   $ docker compose up -d --build
+  >   $ docker compose up -d --build
 
 * **Проверьте статус контейнеров:**
 
- >   $ docker ps
+  >   $ docker ps
 
 * **Подключение к ресурсу**
 
