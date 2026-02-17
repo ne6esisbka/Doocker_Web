@@ -27,12 +27,10 @@
 bash
    git clone https://github.com/ne6esisbka/Doocker_Web.git
    cd Doocker_Web
-** Используйте код с осторожностью. **
 
 Запустите проект в фоновом режиме:
 bash
     docker compose up -d --build
-** Используйте код с осторожностью. **
 
 Проверьте статус контейнеров:
 bash
