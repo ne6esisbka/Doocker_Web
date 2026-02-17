@@ -26,6 +26,7 @@
 * **Клонируйте репозиторий:**
 
   >  $ git clone https://github.com/ne6esisbka/Doocker_Web.git
+  
   >  $ cd Doocker_Web
 
 * **Запустите проект в фоновом режиме:**
